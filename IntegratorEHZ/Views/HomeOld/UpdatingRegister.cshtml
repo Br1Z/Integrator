@@ -1,0 +1,95 @@
+﻿@model IntegratorEHZ.Models.SKZ.RegisterUpdateFormData
+@{
+    Layout = null;
+}
+<form asp-action="UpdatingRegister" asp-controller="Home" id="UpdatingRegister">
+    <div class="row">
+        <div class="col-9">
+            <label asp-for="SetOutputCurrent"></label>
+        </div>
+        <div class="col-3">
+            <input asp-for="SetOutputCurrent" class="form-control" />
+        </div>
+        <span asp-validation-for="SetOutputCurrent" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-9">
+            <label asp-for="SetSumPotential"></label>
+        </div>
+        <div class="col-3">
+            <input asp-for="SetSumPotential" class="form-control" />
+        </div>
+        <span asp-validation-for="SetSumPotential" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-9">
+            <label asp-for="SetPolPotential"></label>
+        </div>
+        <div class="col-3">
+            <input asp-for="SetPolPotential" class="form-control" />
+        </div>
+        <span asp-validation-for="SetPolPotential" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-9">
+            <label asp-for="SetStabControlMode"></label>
+        </div>
+        <div class="col-3">
+            <input asp-for="SetStabControlMode" class="form-control" />
+        </div>
+        <span asp-validation-for="SetStabControlMode" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-10">
+            <label asp-for="DistantPowerControl"> </label><br />
+        </div>
+        <div class="col-2">
+            <input asp-for="DistantPowerControl" />
+        </div>
+        <span asp-validation-for="DistantPowerControl" class="text-danger"></span>
+    </div>
+    <hr />
+    <input type="submit" id="Send" class="btn btn-primary form-control" value="Отправить">
+    <br />
+</form>
+<a class="UpdatingRegisterCustomShow" href="#" title="Собственный запрос">
+    &darr;
+</a>
+
+<form asp-action="UpdatingRegisterCustom" asp-controller="Home" method="post" id="UpdatingRegisterCustom">
+    <input asp-for="Id" disabled hidden />
+    <input asp-for="ADU" class="form-control" />
+    <br />
+    <input type="submit" id="Send" class="btn btn-primary form-control" value="Отправить собственный запрос">
+</form>
+
+<script>
+
+    $.validator.unobtrusive.parse("#UpdatingRegister"); //регистрация формы для ненавязчивой проверкой
+    $(document).ready(function () {
+        $("#UpdatingRegisterCustom").hide();
+        $(".UpdatingRegisterCustomShow").click(function () {
+            $("#UpdatingRegisterCustom").slideToggle("slow", function () { });
+        });
+        $("#UpdatingRegister").submit(function (e) {
+            if ($("#UpdatingRegister").valid()) {
+                $.ajax({
+                    type: "Post",
+                    url: $(this).attr("action"),
+                    data: new FormData(this),
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        $('#formModal .modal-body').html('');
+                        $('#formModal').modal('hide');
+                    }
+                });
+                e.preventDefault();
+            }
+        });
+    });
+</script>

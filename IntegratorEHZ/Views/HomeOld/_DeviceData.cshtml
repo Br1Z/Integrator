@@ -1,0 +1,116 @@
+﻿@using IntegratorEHZ.App_Code
+@model IntegratorEHZ.Models.DataSKZ
+
+<style>
+    td {
+        font-size: 100%;
+        padding: 0px;
+    }
+
+    .Headers {
+        width: 500px;
+        height: 10px;
+        font-size: smaller;
+        text-align: right;
+    }
+
+    .Cell {
+        width: 350px;
+        font-size: smaller;
+        text-align: left;
+        margin-left: -40px;
+    }
+
+    .PowerModuleStatusImg {
+        width: 16px;
+        margin: 2px;
+    }
+
+    .ParamTelesignal {
+        width: 16px;
+        margin: 3px;
+    }
+
+    .tooltip-inner {
+        background-color: #007bff !important;
+        /*!important is not necessary if you place custom.css at the end of your css calls. For the purpose of this demo, it seems to be required in SO snippet*/
+        color: #fff;
+    }
+
+    .tooltip.top .tooltip-arrow {
+        border-top-color: #007bff;
+    }
+
+    .tooltip.right .tooltip-arrow {
+        border-right-color: #007bff;
+    }
+
+    .tooltip.bottom .tooltip-arrow {
+        border-bottom-color: #007bff;
+    }
+
+    .tooltip.left .tooltip-arrow {
+        border-left-color: #007bff;
+    }
+
+</style>
+
+<div class="border border-primary rounded" style="overflow:auto; height:684px">
+    <div class="container">
+
+        <div class="row">
+            <table class="table border">
+                <tr><td class="Headers p-1">Напряжение питающей сети 1:              </td><td class="Cell p-1">@Model.PowerLineVoltage1  </td></tr>
+                <tr><td class="Headers p-1">Значение счетчика электроэнергии 1:      </td><td class="Cell p-1">@Model.EnergyMeterValue1  </td></tr>
+                <tr><td class="Headers p-1">Напряжение питающей сети 2:              </td><td class="Cell p-1">@Model.PowerLineVoltage2  </td></tr>
+                <tr><td class="Headers p-1">Значение счетчика электроэнергии 2:      </td><td class="Cell p-1">@Model.EnergyMeterValue2  </td></tr>
+                <tr><td class="Headers p-1">Время наработки:                         </td><td class="Cell p-1">@Model.WorkTime           </td></tr>
+                <tr><td class="Headers p-1">Время защиты сооружения:                 </td><td class="Cell p-1">@Model.ProtectionTime     </td></tr>
+                <tr><td class="Headers p-1">Выходной ток:                            </td><td class="Cell p-1">@Model.OutputCurrent      </td></tr>
+                <tr><td class="Headers p-1">Выходное напряжение:                     </td><td class="Cell p-1">@Model.OutputVoltage      </td></tr>
+                <tr><td class="Headers p-1">Защитный потенциал, суммарный:           </td><td class="Cell p-1">@Model.SumProtectPotent   </td></tr>
+                <tr><td class="Headers p-1">Защитный потенциал, поляризационный:     </td><td class="Cell p-1">@Model.PolProtectPotent   </td></tr>
+                <tr><td class="Headers p-1">Режим управления станцией:               </td><td class="Cell p-1">@Model.ControlMode        </td></tr>
+                <tr><td class="Headers p-1">Задание выходного тока:                  </td><td class="Cell p-1">@Model.SetOutputCurrent   </td></tr>
+                <tr><td class="Headers p-1">Задание сум. потенциала:                 </td><td class="Cell p-1">@Model.SetSumPotential    </td></tr>
+                <tr><td class="Headers p-1">Задание поляр. потенциала:               </td><td class="Cell p-1">@Model.SetPolPotential    </td></tr>
+                <tr><td class="Headers p-1">Управление режимами стабилизации станции:</td><td class="Cell p-1">@Model.SetStabControlMode </td></tr>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            Состояние силомых модулей
+        </div>
+        <div class="row justify-content-center">
+            @Html.CheckStatus((UInt16)Model.PowerModuleState1, 1)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState2, 2)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState3, 3)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState4, 4)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState5, 5)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState6, 6)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState7, 7)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState8, 8)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState9, 9)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState10, 10)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState11, 11)
+            @Html.CheckStatus((UInt16)Model.PowerModuleState12, 12)
+        </div>
+        <div class="row justify-content-center">
+            Параметры телесигнализации
+        </div>
+        <div class="row justify-content-center ">
+
+            @Html.CheckTheTelesignalizationParameters(Model.UnauthorisedAccess, "Несанкционированный доступ в шкаф станции(блок - бокс)")
+            @Html.CheckTheTelesignalizationParameters(Model.StationControllMode, "Режим управления станцией")
+            @Html.CheckTheTelesignalizationParameters(Model.StationFailure, "Неисправность станции")
+            @Html.CheckTheTelesignalizationParameters(Model.LineDisconnection, "Обрыв измерительных цепей от защищаемого сооружения или от электрода сравнения")
+            @Html.CheckTheTelesignalizationParameters(Model.MainOrReserved, "Включение группы основных или резервных силовых модулей (СКЗ)")
+            @Html.CheckTheTelesignalizationParameters(Model.DistantPowerControl, "Дистанционное отключение и включение силовых модулей")
+        </div>
+    </div>
+</div>
+<script>
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>

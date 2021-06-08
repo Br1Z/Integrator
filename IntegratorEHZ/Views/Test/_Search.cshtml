@@ -1,0 +1,34 @@
+﻿@model IEnumerable<IntegratorEHZ.Models.Device>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMEI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Internal_Protocol)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IMEI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Internal_Protocol)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+﻿@model IntegratorEHZ.Models.DataSKZ
+<br />
+<style>
+    .inputFormDate {
+        width: 150px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    .inputFromTime {
+        height: 35px;
+        margin-right: 10px;
+    }
+</style>
+<form id="Filtering" asp-action="Filtering" asp-controller="Home" method="post">
+
+        <input type="date" name="dateFrom" class="inputFormDate" /><input type="time" name="timeFrom" class="inputFromTime" value="00:00" /> <input type="submit" value="Search" id="submit" class="btn btn-default btn-outline-info" style="margin-top: -3px" /> <br />
+        <input type="date" name="dateTo" class="inputFormDate" /><input type="time" name="timeTo"  class="inputFromTime" value="00:00" />
+        
+</form>
+
+<div id="ViewDataJournal">
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#Filtering").submit(function (e) {
+            
+            $.ajax({
+                type: "Post",
+                url: $(this).attr("action"),
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function (reslut)
+                {
+                    $("#ViewDataJournal").html(reslut);
+                }
+
+            });
+            e.preventDefault();
+        });
+    });   
+</script>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<IntegratorEHZ.Models.LogSKZ>
+
+    <style>
+        .table th {
+            position: sticky;
+            background-color: white;
+            top: 0;
+        }
+/*        .table thead {
+            position: sticky;
+            background-color: white;
+            top:0;
+        }*/
+
+    </style>
+
+<div class="border border-primary rounded" style="overflow:auto; height:684px">
+        @if (Model.Count() > 0)
+        {
+
+
+
+            <table class="table table-bordered table-hover responsive-table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(m => m.TimeReceivedData)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerLineVoltage1)</th>
+                        <th>@Html.DisplayNameFor(m => m.EnergyMeterValue1)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerLineVoltage2)</th>
+                        <th>@Html.DisplayNameFor(m => m.EnergyMeterValue2)</th>
+                        <th>@Html.DisplayNameFor(m => m.WorkTime)</th>
+                        <th>@Html.DisplayNameFor(m => m.ProtectionTime)</th>
+                        <th>@Html.DisplayNameFor(m => m.OutputCurrent)</th>
+                        <th>@Html.DisplayNameFor(m => m.OutputVoltage)</th>
+                        <th>@Html.DisplayNameFor(m => m.SumProtectPotent)</th>
+                        <th>@Html.DisplayNameFor(m => m.PolProtectPotent)</th>
+                        <th>@Html.DisplayNameFor(m => m.ControlMode)</th>
+                        <th>@Html.DisplayNameFor(m => m.UnauthorisedAccess)</th>
+                        <th>@Html.DisplayNameFor(m => m.StationControllMode)</th>
+                        <th>@Html.DisplayNameFor(m => m.StationFailure)</th>
+                        <th>@Html.DisplayNameFor(m => m.LineDisconnection)</th>
+                        <th>@Html.DisplayNameFor(m => m.MainOrReserved)</th>
+                        <th>@Html.DisplayNameFor(m => m.DistantPowerControl)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState1)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState2)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState3)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState4)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState5)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState6)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState7)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState8)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState9)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState10)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState11)</th>
+                        <th>@Html.DisplayNameFor(m => m.PowerModuleState12)</th>
+                        <th>@Html.DisplayNameFor(m => m.SetOutputCurrent)</th>
+                        <th>@Html.DisplayNameFor(m => m.SetSumPotential)</th>
+                        <th>@Html.DisplayNameFor(m => m.SetPolPotential)</th>
+                        <th>@Html.DisplayNameFor(m => m.SetStabControlMode)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TimeReceivedData</td>
+                            <td>@item.PowerLineVoltage1</td>
+                            <td>@item.EnergyMeterValue1</td>
+                            <td>@item.PowerLineVoltage2</td>
+                            <td>@item.EnergyMeterValue2</td>
+                            <td>@item.WorkTime</td>
+                            <td>@item.ProtectionTime</td>
+                            <td>@item.OutputCurrent</td>
+                            <td>@item.OutputVoltage</td>
+                            <td>@item.SumProtectPotent</td>
+                            <td>@item.PolProtectPotent</td>
+                            <td>@item.ControlMode</td>
+                            <td>@item.UnauthorisedAccess</td>
+                            <td>@item.StationControllMode</td>
+                            <td>@item.StationFailure</td>
+                            <td>@item.LineDisconnection</td>
+                            <td>@item.MainOrReserved</td>
+                            <td>@item.DistantPowerControl</td>
+                            <td>@item.PowerModuleState1</td>
+                            <td>@item.PowerModuleState2</td>
+                            <td>@item.PowerModuleState3</td>
+                            <td>@item.PowerModuleState4</td>
+                            <td>@item.PowerModuleState5</td>
+                            <td>@item.PowerModuleState6</td>
+                            <td>@item.PowerModuleState7</td>
+                            <td>@item.PowerModuleState8</td>
+                            <td>@item.PowerModuleState9</td>
+                            <td>@item.PowerModuleState10</td>
+                            <td>@item.PowerModuleState11</td>
+                            <td>@item.PowerModuleState12</td>
+                            <td>@item.SetOutputCurrent</td>
+                            <td>@item.SetSumPotential</td>
+                            <td>@item.SetPolPotential</td>
+                            <td>@item.SetStabControlMode</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <span class="alert-info"> Нет данных </span>
+        }
+    </div>
+
+<script>
+
+</script>

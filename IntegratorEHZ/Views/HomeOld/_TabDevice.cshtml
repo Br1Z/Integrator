@@ -1,0 +1,91 @@
+﻿@model IntegratorEHZ.Models.AboutDevices
+
+
+<link rel="stylesheet" href="~/css/DeviceSKZStyle.css" />
+<div class="row">
+    <div class="col-10"> <h1 class="display-4">@Model.dataSKZ.device.IMEI</h1> </div>
+    <div class="col-2"> <div id="LedIndication" class="@ViewBag.IsDeviceConnected"></div> </div>
+</div>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="DeviceData-tab" data-toggle="tab" href="#DeviceData" role="tab" aria-controls="DeviceData" aria-selected="true">Данные устройства</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="DeviceDataJournal-tab" data-toggle="tab" href="#DeviceDataJournal" role="tab" aria-controls="DeviceDataJournal" aria-selected="false">Журнал</a>
+    </li>
+    <li>
+        <button type="button" class="btn btn-success" id="ModalCall" data-url="@Url.Action("UpdatingRegister","Home",new { Id = Model.dataSKZ.device.Id })" style="margin-left:460px">
+            Изменить
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="DeviceData" role="tabpanel" aria-labelledby="DeviceData-tab"> @await Html.PartialAsync("_DeviceData",Model.dataSKZ) </div>
+    <div class="tab-pane fade" id="DeviceDataJournal" role="tabpanel" aria-labelledby="DeviceDataJournal-tab">@await Html.PartialAsync("_DeviceDataJournal", Model.dataSKZ)</div>
+</div>
+
+
+
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">@Model.dataSKZ.device.IMEI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var connection = new signalR.HubConnectionBuilder().withUrl("/integratorHub").build();
+        connection.start()
+        .then(function () {
+            console.log('connection started');
+        })
+        .catch(error => {
+            console.error(error.message);
+        });
+
+        connection.on("GetAllDevices", function (message) {
+            $('#DeviceData').load('@Url.Action("DeviceData","Home", new { Id=Model.dataSKZ.device.Id})');
+       });
+
+        connection.on("OnConnectionIndication", function (isConnected) {
+            console.log(isConnected);
+            if (isConnected)
+            {
+                LedIndication.className = "led-green";
+            }
+            else
+            {
+                LedIndication.className = "led-red";
+            }
+        });
+
+
+        $("#ModalCall").click(function () {
+            $.ajax({
+                type: "GET",
+                url: $(this).data('url'),
+                success: function (result) {
+                    $('#formModal .modal-body').html(result);
+                    $('#formModal').modal('show');
+                }
+
+            });
+        });
+    });
+
+
+
+</script>

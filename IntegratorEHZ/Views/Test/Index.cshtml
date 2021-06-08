@@ -1,0 +1,61 @@
+﻿@model IEnumerable<IntegratorEHZ.Models.Device>
+
+
+<div class="container">
+    <div class="form-horizontal">
+        <hr />
+        <h4>Search for a client: </h4>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="Name">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </span>
+            <input id="IMEI" class="form-control" placeholder="IMEI" />
+        </div>
+        <div><h6></h6></div>
+        <div class="input-group">
+            <span class="input-group-addon" id="Surname">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </span>
+
+            <input id="Protocol" class="form-control" placeholder="Протокол" />
+        </div>
+        <div><h6></h6></div>
+        <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#infoModal">Search</button>
+    </div>
+
+</div>
+
+<div id="resultsTable">
+    @await Html.PartialAsync("_Search", Model)
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#IMEI,#Protocol").keyup(function (e) {
+            var imei = $("#IMEI").val();
+            var protocol = $("#Protocol").val();
+            console.log(imei);
+            console.log(protocol);
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Search", "Test")?IMEI=' + imei + '&Protocol=' + protocol,
+                success: function (result) {
+                    $("#resultsTable").html(result);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+@*<!--$(function () {
+        $("#Name,#SurName").keyup(function (e) {
+            var n = $("#Name").val();
+            var sn = $("#SurName").val();
+            console.log(n);
+            console.log(sn);-->
+            
+        <!--});
+    });-->*@

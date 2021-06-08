@@ -1,0 +1,44 @@
+﻿@model IEnumerable<IntegratorEHZ.Models.Device>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<input id="IMEI" class="form-control"/>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<div class="row">
+    <div class="list-group col-3 anyClass border border-primary rounded" id="ListId" role="tablist" style="overflow:auto; height:800px">
+        @Html.Partial("_ListDevice", Model)
+    </div>
+    <div class="col-9">
+        <div id="ValuesList" class="fade show"></div>
+ 
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        //$(".deviceButton").click(function () {
+        //    var url = $(this).data("url");
+        //    $('#ValuesList').load(url);
+        //})
+    
+    $("#IMEI").keyup(function (e) {
+                var imei = $("#IMEI").val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("SearchImei","Home")?IMEI=' + imei,
+                    success: function (result) {
+                        $("#ListId").html(result);
+                    }
+                });
+            e.preventDefault()
+    });
+    });
+</script>
+
+
+
+
